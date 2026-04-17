@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://c2ydnuyrvo486"]
+
+[ext_resource type="Theme" uid="uid://ueyxjy0k7i1k" path="res://notifications/ui/notification_theme_base.tres" id="1_q8cqi"]
+[ext_resource type="Script" uid="uid://wjheg7amg74y" path="res://notifications/ui/notification_panel.gd" id="2_bbink"]
+[ext_resource type="Texture2D" uid="uid://bvii2115eqamx" path="res://notifications/ui/assets/icons/default_notification_icon.png" id="2_wfct8"]
+
+[node name="NotificationPanel" type="PanelContainer" unique_id=366084501 groups=["UserNotification"]]
+offset_right = 190.0
+offset_bottom = 84.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_q8cqi")
+script = ExtResource("2_bbink")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=487634574]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1527209165]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Image" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=30169644]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_wfct8")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1069855741]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=804650939]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 20)
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[b]Super Snapy Title[/b]"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Text" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1506149763]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+bbcode_enabled = true
+text = "Lorem Ipsum Dolor Sit Amet Truc[br]Bidule Machin Pouet Ouais 69latrik"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="FadeTimer" type="Timer" parent="." unique_id=629905821]
+unique_name_in_owner = true
+one_shot = true

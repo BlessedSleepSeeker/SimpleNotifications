@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://djed76ayof5tw"]
+
+[ext_resource type="Script" uid="uid://dfgn7qnjq0w7k" path="res://autoloads/notification_manager.gd" id="1_e35yb"]
+[ext_resource type="PackedScene" uid="uid://c2ydnuyrvo486" path="res://notifications/ui/NotificationPanel.tscn" id="2_c62to"]
+
+[node name="NotificationManager" type="CanvasLayer" unique_id=1438831522]
+layer = 10
+script = ExtResource("1_e35yb")
+
+[node name="TopLeft" type="MarginContainer" parent="." unique_id=1395784109]
+unique_name_in_owner = true
+offset_right = 342.0
+offset_bottom = 260.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopLeft" unique_id=1335406698]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="NotificationPanel" parent="TopLeft/VBoxContainer" unique_id=366084501 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="NotificationPanel2" parent="TopLeft/VBoxContainer" unique_id=1417460121 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="TopRight" type="MarginContainer" parent="." unique_id=553566981]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -342.0
+offset_bottom = 260.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopRight" unique_id=2121450190]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="NotificationPanel" parent="TopRight/VBoxContainer" unique_id=586697808 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="NotificationPanel2" parent="TopRight/VBoxContainer" unique_id=307443406 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="BottomRight" type="MarginContainer" parent="." unique_id=1073747771]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -342.0
+offset_top = -260.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomRight" unique_id=651322343]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="NotificationPanel" parent="BottomRight/VBoxContainer" unique_id=328376741 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="NotificationPanel2" parent="BottomRight/VBoxContainer" unique_id=104873546 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="BottomLeft" type="MarginContainer" parent="." unique_id=260272057]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -260.0
+offset_right = 342.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomLeft" unique_id=1644305171]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+alignment = 2
+
+[node name="NotificationPanel" parent="BottomLeft/VBoxContainer" unique_id=2140913386 instance=ExtResource("2_c62to")]
+layout_mode = 2
+
+[node name="NotificationPanel2" parent="BottomLeft/VBoxContainer" unique_id=964766638 instance=ExtResource("2_c62to")]
+layout_mode = 2

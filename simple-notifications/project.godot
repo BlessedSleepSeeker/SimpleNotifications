@@ -1,0 +1,32 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="SimpleNotifications"
+run/main_scene="uid://cq51aavn03q37"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+NotificationManager="*uid://djed76ayof5tw"
+
+[global_group]
+
+UserNotification="User Defined Notifications"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
