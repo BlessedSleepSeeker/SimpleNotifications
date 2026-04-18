@@ -1,6 +1,27 @@
 [gd_scene format=3 uid="uid://cq51aavn03q37"]
 
 [ext_resource type="Script" uid="uid://deyvppjfnuydn" path="res://notifications/demo/demo.gd" id="1_xpkkr"]
+[ext_resource type="Texture2D" uid="uid://b3j5unwedb2qw" path="res://notifications/ui/assets/icons/audioOn.png" id="2_qyuk2"]
+[ext_resource type="Texture2D" uid="uid://b6yavt87qmqok" path="res://notifications/ui/assets/icons/checkmark.png" id="3_1qjdf"]
+[ext_resource type="Texture2D" uid="uid://cqidrtwvwhqk8" path="res://notifications/ui/assets/icons/demo_notification_icon.png" id="4_vd1ds"]
+[ext_resource type="Texture2D" uid="uid://c2o07enfdvbab" path="res://notifications/ui/assets/icons/exclamation.png" id="5_cfup1"]
+[ext_resource type="Texture2D" uid="uid://bqt2tritfwvlv" path="res://notifications/ui/assets/icons/musicOn.png" id="6_len1h"]
+[ext_resource type="Texture2D" uid="uid://whx7f8ux4ehs" path="res://notifications/ui/assets/icons/power.png" id="7_pa47u"]
+[ext_resource type="Texture2D" uid="uid://fh7t6dr66doe" path="res://notifications/ui/assets/icons/save.png" id="8_3o7cr"]
+[ext_resource type="Texture2D" uid="uid://bf2qusw63pkvt" path="res://notifications/ui/assets/icons/share1.png" id="9_7xxoe"]
+[ext_resource type="Texture2D" uid="uid://n4idmhbxv5bn" path="res://notifications/ui/assets/icons/shoppingBasket.png" id="10_ui36x"]
+[ext_resource type="Texture2D" uid="uid://bx3debjs3tv6l" path="res://notifications/ui/assets/icons/signal3.png" id="11_em65c"]
+[ext_resource type="Texture2D" uid="uid://c3wij5nma6ro7" path="res://notifications/ui/assets/icons/smaller.png" id="12_wvgux"]
+[ext_resource type="Texture2D" uid="uid://dfeueaauc31hq" path="res://notifications/ui/assets/icons/video.png" id="13_hfmvv"]
+[ext_resource type="Texture2D" uid="uid://dbojgks52ck7n" path="res://notifications/ui/assets/icons/wrench.png" id="14_itmwj"]
+[ext_resource type="AudioStream" uid="uid://xt1joa47mlyl" path="res://notifications/ui/assets/sfx/woosh1.ogg" id="15_ui36x"]
+[ext_resource type="AudioStream" uid="uid://bpuifhn0s0b7b" path="res://notifications/ui/assets/sfx/woosh2.ogg" id="16_em65c"]
+[ext_resource type="AudioStream" uid="uid://d2qypa82liiip" path="res://notifications/ui/assets/sfx/woosh3.ogg" id="17_wvgux"]
+[ext_resource type="AudioStream" uid="uid://dmr41usaalido" path="res://notifications/ui/assets/sfx/woosh4.ogg" id="18_hfmvv"]
+[ext_resource type="AudioStream" uid="uid://b33pk0tqnvsui" path="res://notifications/ui/assets/sfx/woosh5.ogg" id="19_itmwj"]
+[ext_resource type="AudioStream" uid="uid://sqhrs4euin2w" path="res://notifications/ui/assets/sfx/woosh6.ogg" id="20_bwxeq"]
+[ext_resource type="AudioStream" uid="uid://cl615thb7davn" path="res://notifications/ui/assets/sfx/woosh7.ogg" id="21_m7akg"]
+[ext_resource type="AudioStream" uid="uid://cyfbea40qv0h7" path="res://notifications/ui/assets/sfx/woosh8.ogg" id="22_qbnhs"]
 
 [node name="Demo" type="MarginContainer" unique_id=1091138709]
 anchors_preset = 15
@@ -9,6 +30,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xpkkr")
+possible_icons = Array[Texture2D]([ExtResource("2_qyuk2"), ExtResource("3_1qjdf"), ExtResource("4_vd1ds"), ExtResource("5_cfup1"), ExtResource("6_len1h"), ExtResource("7_pa47u"), ExtResource("8_3o7cr"), ExtResource("9_7xxoe"), ExtResource("10_ui36x"), ExtResource("11_em65c"), ExtResource("12_wvgux"), ExtResource("13_hfmvv"), ExtResource("14_itmwj")])
+possibles_sfx = Array[AudioStream]([ExtResource("15_ui36x"), ExtResource("16_em65c"), ExtResource("17_wvgux"), ExtResource("18_hfmvv"), ExtResource("19_itmwj"), ExtResource("20_bwxeq"), ExtResource("21_m7akg"), ExtResource("22_qbnhs")])
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1155593494]
 layout_mode = 2

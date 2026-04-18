@@ -11,33 +11,55 @@ class_name UserNotificationPanel
 @onready var image_rect: TextureRect = %Image
 
 @onready var timer: Timer = %FadeTimer
+@onready var timer_bar: ProgressBar = %BarTimer
+
+@onready var on_spawn_sfx_player: AudioStreamPlayer = %OnSpawnSFX
 
 signal clicked
 
 func _ready() -> void:
 	self.gui_input.connect(_on_input_received)
-	if user_notification:
-		build()
+	build()
 
 func build() -> void:
+	apply_theme()
 	apply_dimensions()
 	apply_data()
 	apply_timer()
+	apply_sfx()
 
+## Change the [Theme] used by the panel to [member UserNotification.applied_theme].
+func apply_theme() -> void:
+	if user_notification:
+		self.theme = user_notification.applied_theme
+
+## Set the custom minimum size of the controls to the decided values in [member UserNotification.labels_horizontal_size], [member UserNotification.image_x_size] & [member UserNotification.image_y_size].
 func apply_dimensions() -> void:
-	title_label.custom_minimum_size.x = user_notification.labels_horizontal_size
-	text_label.custom_minimum_size.x = user_notification.labels_horizontal_size
-	image_rect.custom_minimum_size = Vector2(user_notification.image_x_size, user_notification.image_y_size)
+	if user_notification:
+		title_label.custom_minimum_size.x = user_notification.labels_horizontal_size
+		text_label.custom_minimum_size.x = user_notification.labels_horizontal_size
+		image_rect.custom_minimum_size = Vector2(user_notification.image_x_size, user_notification.image_y_size)
 
+## Change the text in both labels according to [member UserNotification.title_rich_template] & [member UserNotification.text_rich_template].
+## Change [member image_rect.texture] to [member UserNotification.image].
 func apply_data() -> void:
-	title_label.text = user_notification.title_rich_template % user_notification.title
-	text_label.text = user_notification.text_rich_template % user_notification.text
-	image_rect.texture = user_notification.image
+	if user_notification:
+		title_label.text = user_notification.title_rich_template % user_notification.title
+		text_label.text = user_notification.text_rich_template % user_notification.text
+		image_rect.texture = user_notification.image
 
+## If [member UserNotification.lifetime] is more than zero, start a lifetime timer. The timer calls [method destroy] when it finishes.
 func apply_timer() -> void:
-	if user_notification.lifetime > 0:
+	if user_notification && user_notification.lifetime > 0:
 		timer.start(user_notification.lifetime)
 		timer.timeout.connect(destroy)
+		timer_bar.max_value = user_notification.lifetime
+
+## If [member UserNotification.on_spawn_sfx] is not null, set it to [member on_spawn_sfx_player.stream] & start playing it.
+func apply_sfx() -> void:
+	if user_notification && user_notification.on_spawn_sfx:
+		on_spawn_sfx_player.stream = user_notification.on_spawn_sfx
+		on_spawn_sfx_player.play()
 
 func destroy() -> void:
 	self.queue_free()
@@ -45,10 +67,17 @@ func destroy() -> void:
 func _on_input_received(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if user_notification:
-			if user_notification.kill_on_click:
+			if user_notification.dismiss_on_click:
 				clicked.emit()
 				destroy()
 		else:
 			destroy()
-		
-	
+
+func _process(_delta):
+	if user_notification && not user_notification.disable_lifetime_animation && user_notification.lifetime > 0:
+		timer_bar.value = inverse_number_around_another(timer.time_left, timer.wait_time / 2)
+
+## Used to inverse [member Timer.time_left] around [member Timer.wait_time / 2] to make sure the progress value is from 0 to wait_time.
+## inverse_number_around_another(2.3, 6) = 6 - (2.3 - 6) = 6 - -3.7 = 9.7.
+static func inverse_number_around_another(number: float, axis: float) -> float:
+	return axis - (number - axis)
