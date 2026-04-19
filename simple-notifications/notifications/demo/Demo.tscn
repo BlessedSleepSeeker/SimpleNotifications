@@ -29,15 +29,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 script = ExtResource("1_xpkkr")
 possible_icons = Array[Texture2D]([ExtResource("2_qyuk2"), ExtResource("3_1qjdf"), ExtResource("4_vd1ds"), ExtResource("5_cfup1"), ExtResource("6_len1h"), ExtResource("7_pa47u"), ExtResource("8_3o7cr"), ExtResource("9_7xxoe"), ExtResource("10_ui36x"), ExtResource("11_em65c"), ExtResource("12_wvgux"), ExtResource("13_hfmvv"), ExtResource("14_itmwj")])
 possibles_sfx = Array[AudioStream]([ExtResource("15_ui36x"), ExtResource("16_em65c"), ExtResource("17_wvgux"), ExtResource("18_hfmvv"), ExtResource("19_itmwj"), ExtResource("20_bwxeq"), ExtResource("21_m7akg"), ExtResource("22_qbnhs")])
 
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=518283181]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=356255101]
+layout_mode = 2
+text = "Change the notification's global settings here :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer" unique_id=1289506398]
+layout_mode = 2
+
+[node name="AmountControl" type="SpinBox" parent="HBoxContainer/HBoxContainer" unique_id=627745062]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+min_value = -1.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer" unique_id=1065246542]
+layout_mode = 2
+text = "Max Number Of Notifications"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer" unique_id=1699278979]
+layout_mode = 2
+
+[node name="SpawnControl" type="OptionButton" parent="HBoxContainer/HBoxContainer2" unique_id=1871394066]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 2
+item_count = 4
+popup/item_0/text = "Top Left"
+popup/item_0/id = 0
+popup/item_1/text = "Top Right"
+popup/item_1/id = 1
+popup/item_2/text = "Bottom Right"
+popup/item_2/id = 2
+popup/item_3/text = "Bottom Left"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/HBoxContainer2" unique_id=1035231665]
+layout_mode = 2
+text = "Spawn Position"
+
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1155593494]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer" unique_id=182081578]
 layout_mode = 2
+mouse_filter = 2
 columns = 2
 
 [node name="NewButton" type="Button" parent="CenterContainer/GridContainer" unique_id=1423231022]
@@ -53,3 +101,13 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Spawn Stored
 Notification"
+
+[node name="DelayedButton" type="Button" parent="CenterContainer/GridContainer" unique_id=16819346]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Spawn Notification with
+taskbar effet
+(does not blink on
+editor window or if
+window is focused)"

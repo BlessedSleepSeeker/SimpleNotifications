@@ -1,12 +1,13 @@
 extends CanvasLayer
+class_name NotificationManager_
 
 @export var notification_panel_scene: PackedScene = preload("uid://c2ydnuyrvo486")
 
-## Maximum amount of displayed notification at the same time. If notifications are sent when the maximum is reached, they're put in a queue and displayed once space is available. 
+## Maximum amount of displayed notification at the same time. If notifications are sent when the maximum is reached, they're put in a queue and displayed once space is available. Set to 0 to disable notifications and to -1 to allow infinite notifications.
 @export var maximum_notification_amount: int = 4
 ## Time before a notification disapear.  
 ## Can be overriden on a per-notification basis. See [member Notification.lifetime].
-@export var notification_lifetime: float = 10
+@export var default_notification_lifetime: float = 10
 ## In which corner of the screen should the notification appear. See [enum SpawnPoints].[br]
 ## Can be overriden on a per-notification basis. See [member Notification.lifetime].
 @export var spawn_point: SpawnPoints = SpawnPoints.BOTTOM_RIGHT
@@ -70,7 +71,7 @@ func pop_next_notification() -> UserNotification:
 	return notifications_queue.pop_front()
 
 func try_to_display_notification() -> void:
-	if get_visible_notification_amount() >= maximum_notification_amount:
+	if get_visible_notification_amount() >= maximum_notification_amount && maximum_notification_amount != -1:
 		## Too much notifications ! Let's wait some of them die first.
 		return
 
@@ -87,7 +88,7 @@ func get_visible_notification_amount() -> int:
 	return get_tree().get_nodes_in_group("UserNotification").size()
 
 ## Call [method add_child] on the proper spawn point.
-func add_notification_to_spawn_point(panel: UserNotificationPanel, _spawn_point: SpawnPoints) -> void:
+func add_notification_to_spawn_point(panel: UserNotificationPanel, _spawn_point: NotificationManager_.SpawnPoints) -> void:
 	match spawn_point:
 		SpawnPoints.USE_MANAGER_DEFAULT:
 			add_notification_to_spawn_point(panel, self.spawn_point)

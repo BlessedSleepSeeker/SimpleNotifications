@@ -5,23 +5,77 @@ extends MarginContainer
 @export var possible_icons: Array[Texture2D] = []
 @export var possibles_sfx: Array[AudioStream] = []
 
+@onready var amount_control: SpinBox = %AmountControl
+@onready var spawn_control: OptionButton = %SpawnControl
+
 @onready var new_button: Button = %NewButton
 @onready var stored_button: Button = %StoredButton
+@onready var delayed_button: Button = %DelayedButton
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var total_notif_spawned: int = 0
 
-func _ready():
-	new_button.pressed.connect(_spawn_new_notification)
+signal focus_out
 
-func _spawn_new_notification() -> void:
-	total_notif_spawned += 1
+func _ready():
+	amount_control.value = NotificationManager.maximum_notification_amount
+	new_button.pressed.connect(_spawn_new_notification)
+	stored_button.pressed.connect(_spawn_stored_notification)
+	delayed_button.pressed.connect(_spawn_delayed_notification)
+	amount_control.value_changed.connect(_on_amount_control_changed)
+	spawn_control.item_selected.connect(_on_spawn_control_changed)
+
+#region UI Settings
+
+func _on_amount_control_changed(value: float) -> void:
+	NotificationManager.maximum_notification_amount = int(value)
+
+func _on_spawn_control_changed(index: int) -> void:
+	match index:
+		0:
+			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.TOP_LEFT
+		1:
+			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.TOP_RIGHT
+		2:
+			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.BOTTOM_RIGHT
+		3:
+			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.BOTTOM_LEFT
+		_:
+			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.TOP_LEFT
+
+#endregion
+
+#region Notifications creation
+func get_randomized_notification() -> UserNotification:
 	var notif: UserNotification = UserNotification.new()
 	notif.title = possible_titles[rng.randi_range(0, possible_titles.size() - 1)]
 	notif.text = possible_texts[rng.randi_range(0, possible_texts.size() - 1)]
 	notif.image = possible_icons[rng.randi_range(0, possible_icons.size() - 1)]
 	notif.on_spawn_sfx = possibles_sfx[rng.randi_range(0, possibles_sfx.size() - 1)]
-	notif.lifetime = 2
+
+	return notif
+
+func _spawn_new_notification() -> void:
+	total_notif_spawned += 1
+	var notif: UserNotification = get_randomized_notification()
 
 	NotificationManager.push_notification(notif)
+
+func _spawn_stored_notification() -> void:
+	NotificationManager.push_stored_notification("additionals_pylons")
+
+func _spawn_delayed_notification() -> void:
+	if DisplayServer.window_is_focused():
+		await focus_out
+	var notif: UserNotification = get_randomized_notification()
+
+	notif.title = "Your taskbar was blinking !"
+	notif.text = "It should be gone now"
+	notif.lifetime = 0
+
+	NotificationManager.push_notification(notif)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		focus_out.emit()

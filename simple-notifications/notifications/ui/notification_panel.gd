@@ -1,3 +1,4 @@
+@icon("uid://bcr0pufqu20o3")
 extends PanelContainer
 class_name UserNotificationPanel
 
@@ -27,6 +28,7 @@ func build() -> void:
 	apply_data()
 	apply_timer()
 	apply_sfx()
+	apply_taskbar_blink()
 
 ## Change the [Theme] used by the panel to [member UserNotification.applied_theme].
 func apply_theme() -> void:
@@ -50,10 +52,11 @@ func apply_data() -> void:
 
 ## If [member UserNotification.lifetime] is more than zero, start a lifetime timer. The timer calls [method destroy] when it finishes.
 func apply_timer() -> void:
-	if user_notification && user_notification.lifetime > 0:
-		timer.start(user_notification.lifetime)
+	if user_notification && user_notification.lifetime >= 0:
+		var lifetime: float = user_notification.lifetime if user_notification.lifetime > 0 else NotificationManager.default_notification_lifetime
+		timer.start(lifetime)
 		timer.timeout.connect(destroy)
-		timer_bar.max_value = user_notification.lifetime
+		timer_bar.max_value = lifetime
 
 ## If [member UserNotification.on_spawn_sfx] is not null, set it to [member on_spawn_sfx_player.stream] & start playing it.
 func apply_sfx() -> void:
@@ -74,8 +77,12 @@ func _on_input_received(event: InputEvent) -> void:
 			destroy()
 
 func _process(_delta):
-	if user_notification && not user_notification.disable_lifetime_animation && user_notification.lifetime > 0:
+	if user_notification && not user_notification.disable_lifetime_animation && user_notification.lifetime >= 0:
 		timer_bar.value = inverse_number_around_another(timer.time_left, timer.wait_time / 2)
+
+func apply_taskbar_blink() -> void:
+	if user_notification && user_notification.make_taskbar_icon_blink:
+		DisplayServer.window_request_attention()
 
 ## Used to inverse [member Timer.time_left] around [member Timer.wait_time / 2] to make sure the progress value is from 0 to wait_time.
 ## inverse_number_around_another(2.3, 6) = 6 - (2.3 - 6) = 6 - -3.7 = 9.7.
