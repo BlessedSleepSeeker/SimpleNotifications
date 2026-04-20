@@ -12,26 +12,26 @@ class_name UserNotification
 ## The rich text string template used to apply string interpolation to [member text]. Make sure your template has exactly one [codeblock]%s[/codeblock] in it.
 @export var text_rich_template: String = "%s"
 
-## The icon displayed on the notification.
-@export var image: Texture2D = preload("uid://bvii2115eqamx")
+## The icon displayed on the notification panel.
+@export var icon: Texture2D = preload("uid://bvii2115eqamx")
 ## The sound played when the notification arrives. Set to null to disable sound playing.
 @export var on_spawn_sfx: AudioStream = null
 ## Change the corner where the notification will spawn.
 @export var spawn_point: NotificationManager_.SpawnPoints = NotificationManager_.SpawnPoints.USE_MANAGER_DEFAULT
 
 @export_group("Size")
-## The Title & Text label horizontal size. Make it bigger or smaller depending on your needs.
-@export_range(1, 3680, 1) var labels_horizontal_size: float = 256
-## The horizontal size applied to [member image].
-@export var image_x_size: float = 64
-## The vertical size applied to [member image].
-@export var image_y_size: float = 64
+## The Title & Text label horizontal size.[br]
+## Set to a negative to let the labels grows with the text inside (horizontal size between multiples notifications might not be consistent anymore). Set to 0 to make it use the default value defined in [member NotificationManager.default_labels_horizontal_size].[br]
+@export_range(-1, 3680, 1) var labels_horizontal_size: float = 0
+## The size of the icon.[br]
+##Set to a negative number to let the image have their original size. Set to 0 to make it use the default value defined in [member NotificationManager.default_icon_size].[br]
+@export_range(-1, 3680, 1) var icon_size: float = 0
 
 ## The theme applied to the [UserNotificationPanel] created to display this notification. See [method UserNotificationPanel.apply_theme]
 @export var applied_theme: Theme = preload("uid://ueyxjy0k7i1k")
 
 @export_group("Lifetime")
-## Duration (in seconds) before the animation fades away.[br]Set lifetime to a negative number to make it infinite/disable the lifetime. Set to 0 to make it use the default value defined in [member NotificationManager.default_notification_lifetime][br]
+## Duration (in seconds) before the animation fades away.[br]Set lifetime to a negative number to make it infinite/disable the lifetime. Set to 0 to make it use the default value defined in [member NotificationManager.default_lifetime][br]
 ## /!\ If you set lifetime to a negative & [member dismiss_on_click] to false, the user will have no way of making the animation disapear !/!\
 @export var lifetime: float = 0
 ## Control if clicking on the notification make it go away. See [method UserNotificationPanel._on_input_received].

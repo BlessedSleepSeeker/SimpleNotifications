@@ -13,7 +13,7 @@ config_version=5
 config/name="SimpleNotifications"
 run/main_scene="uid://cq51aavn03q37"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://1rws8ifipqtp"
 
 [autoload]
 

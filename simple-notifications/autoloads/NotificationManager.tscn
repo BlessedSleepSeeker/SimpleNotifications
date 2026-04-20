@@ -48,8 +48,14 @@ mouse_filter = 2
 
 [node name="NotificationPanel" parent="TopRight/VBoxContainer" unique_id=586697808 instance=ExtResource("2_c62to")]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="NotificationPanel2" parent="TopRight/VBoxContainer" unique_id=307443406 instance=ExtResource("2_c62to")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="NotificationPanel3" parent="TopRight/VBoxContainer" unique_id=265430925 instance=ExtResource("2_c62to")]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="BottomRight" type="MarginContainer" parent="." unique_id=1073747771]
@@ -59,7 +65,7 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -342.0
+offset_left = -431.0
 offset_top = -260.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -73,8 +79,14 @@ mouse_filter = 2
 
 [node name="NotificationPanel" parent="BottomRight/VBoxContainer" unique_id=328376741 instance=ExtResource("2_c62to")]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="NotificationPanel2" parent="BottomRight/VBoxContainer" unique_id=104873546 instance=ExtResource("2_c62to")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="NotificationPanel3" parent="BottomRight/VBoxContainer" unique_id=1714537978 instance=ExtResource("2_c62to")]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="BottomLeft" type="MarginContainer" parent="." unique_id=260272057]

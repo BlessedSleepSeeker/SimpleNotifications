@@ -2,14 +2,15 @@
 
 [ext_resource type="Theme" uid="uid://ueyxjy0k7i1k" path="res://notifications/ui/notification_theme_base.tres" id="1_t2aaf"]
 [ext_resource type="Texture2D" uid="uid://2xvc2vfxr16d" path="res://notifications/demo/stored_notification/pylon.png" id="2_t2aaf"]
+[ext_resource type="AudioStream" uid="uid://c8c2blhfcu6gt" path="res://notifications/demo/stored_notification/additional_pylons.mp3" id="3_du0br"]
 [ext_resource type="Script" uid="uid://d4a3hkhy7212h" path="res://notifications/logic/notification.gd" id="3_hgtw8"]
 
 [resource]
 script = ExtResource("3_hgtw8")
-title = "You must Construct Additional Pylons"
-text = "Send a probe to construct more [wave]pylons[/wave] !"
-image = ExtResource("2_t2aaf")
+title = "You Must Construct Additional [rainbow freq=1.0 sat=0.8 val=0.8 speed=0.5]Pylons[/rainbow]"
+text = "Where's your probe at ?"
+icon = ExtResource("2_t2aaf")
+on_spawn_sfx = ExtResource("3_du0br")
 labels_horizontal_size = 400.0
-image_x_size = 96.0
-image_y_size = 96.0
+lifetime = 4.0
 metadata/_custom_type_script = "uid://d4a3hkhy7212h"

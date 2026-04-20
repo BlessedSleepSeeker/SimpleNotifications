@@ -35,25 +35,51 @@ func apply_theme() -> void:
 	if user_notification:
 		self.theme = user_notification.applied_theme
 
-## Set the custom minimum size of the controls to the decided values in [member UserNotification.labels_horizontal_size], [member UserNotification.image_x_size] & [member UserNotification.image_y_size].
+## Set the custom minimum size of the controls to the decided values in [member UserNotification.labels_horizontal_size] & [member UserNotification.icon_size].
 func apply_dimensions() -> void:
 	if user_notification:
-		title_label.custom_minimum_size.x = user_notification.labels_horizontal_size
-		text_label.custom_minimum_size.x = user_notification.labels_horizontal_size
-		image_rect.custom_minimum_size = Vector2(user_notification.image_x_size, user_notification.image_y_size)
+		if user_notification.labels_horizontal_size < 0:
+			title_label.custom_minimum_size.x = 0
+			text_label.custom_minimum_size.x = 0
+			title_label.fit_content = true
+			text_label.fit_content = true
+		elif user_notification.labels_horizontal_size == 0:
+			if NotificationManager.default_labels_horizontal_size < 0:
+				title_label.custom_minimum_size.x = 0
+				text_label.custom_minimum_size.x = 0
+				title_label.fit_content = true
+				text_label.fit_content = true
+			else:
+				title_label.custom_minimum_size.x = NotificationManager.default_labels_horizontal_size
+				text_label.custom_minimum_size.x = NotificationManager.default_labels_horizontal_size
+		else:
+			title_label.custom_minimum_size.x = user_notification.labels_horizontal_size
+			text_label.custom_minimum_size.x = user_notification.labels_horizontal_size
+		
+		if user_notification.icon_size < 0: ## Use the default icon size
+			image_rect.custom_minimum_size = Vector2(0, 0)
+			image_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		elif user_notification.icon_size == 0: ## Use the default defined in [member NotificationManager.default_icon_size].
+			if NotificationManager.default_icon_size < 0:
+				image_rect.custom_minimum_size = Vector2(0, 0)
+				image_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+			else:
+				image_rect.custom_minimum_size = Vector2(NotificationManager.default_icon_size, NotificationManager.default_icon_size)
+		else: ## Override with custom values from [member UserNotification.icon_size]
+			image_rect.custom_minimum_size = Vector2(user_notification.icon_size, user_notification.icon_size)
 
 ## Change the text in both labels according to [member UserNotification.title_rich_template] & [member UserNotification.text_rich_template].
-## Change [member image_rect.texture] to [member UserNotification.image].
+## Change [member image_rect.texture] to [member UserNotification.icon].
 func apply_data() -> void:
 	if user_notification:
 		title_label.text = user_notification.title_rich_template % user_notification.title
 		text_label.text = user_notification.text_rich_template % user_notification.text
-		image_rect.texture = user_notification.image
+		image_rect.texture = user_notification.icon
 
 ## If [member UserNotification.lifetime] is more than zero, start a lifetime timer. The timer calls [method destroy] when it finishes.
 func apply_timer() -> void:
 	if user_notification && user_notification.lifetime >= 0:
-		var lifetime: float = user_notification.lifetime if user_notification.lifetime > 0 else NotificationManager.default_notification_lifetime
+		var lifetime: float = user_notification.lifetime if user_notification.lifetime > 0 else NotificationManager.default_lifetime
 		timer.start(lifetime)
 		timer.timeout.connect(destroy)
 		timer_bar.max_value = lifetime

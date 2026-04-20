@@ -1,3 +1,4 @@
+@icon("uid://1rws8ifipqtp")
 extends CanvasLayer
 class_name NotificationManager_
 
@@ -5,9 +6,6 @@ class_name NotificationManager_
 
 ## Maximum amount of displayed notification at the same time. If notifications are sent when the maximum is reached, they're put in a queue and displayed once space is available. Set to 0 to disable notifications and to -1 to allow infinite notifications.
 @export var maximum_notification_amount: int = 4
-## Time before a notification disapear.  
-## Can be overriden on a per-notification basis. See [member Notification.lifetime].
-@export var default_notification_lifetime: float = 10
 ## In which corner of the screen should the notification appear. See [enum SpawnPoints].[br]
 ## Can be overriden on a per-notification basis. See [member Notification.lifetime].
 @export var spawn_point: SpawnPoints = SpawnPoints.BOTTOM_RIGHT
@@ -15,6 +13,17 @@ class_name NotificationManager_
 ## Allow to prebuild and store notifications to be reused. Useful if you're going to send the same notification over and over again and dont want to build it every time.[br]
 ## See [method store_notification], [method push_stored_notification] and [method get_stored_notification].
 @export var stored_notifications: Dictionary[String, UserNotification] = {}
+
+@export_group("UserNotification Defaults")
+## Time before a notification disapear.[br]
+## Can be overriden on a per-notification basis. See [member Notification.lifetime].
+@export var default_lifetime: float = 10
+## Default Icon Size (in px).[br]
+## Can be overriden on a per-notification basis. See [member Notification.icon_size].
+@export var default_icon_size: float = 64.0
+## Default Label Horizontal Space (in px).[br]
+## Can be overriden on a per-notification basis. See [member Notification.labels_horizontal_size].
+@export var default_labels_horizontal_size: float = 256.0
 
 @onready var top_left: MarginContainer = %TopLeft
 @onready var top_right: MarginContainer = %TopRight
@@ -94,9 +103,13 @@ func add_notification_to_spawn_point(panel: UserNotificationPanel, _spawn_point:
 			add_notification_to_spawn_point(panel, self.spawn_point)
 		SpawnPoints.TOP_LEFT:
 			top_left.get_node("VBoxContainer").add_child(panel)
+			panel.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN ## Make sure it is aligned properly to the edge of the screen even if other, bigger notifications make the [VBoxContainer] bigger.
 		SpawnPoints.TOP_RIGHT:
 			top_right.get_node("VBoxContainer").add_child(panel)
+			panel.size_flags_horizontal = Control.SIZE_SHRINK_END ## Make sure it is aligned properly to the edge of the screen even if other, bigger notifications make the [VBoxContainer] bigger.
 		SpawnPoints.BOTTOM_RIGHT:
 			bottom_right.get_node("VBoxContainer").add_child(panel)
+			panel.size_flags_horizontal = Control.SIZE_SHRINK_END ## Make sure it is aligned properly to the edge of the screen even if other, bigger notifications make the [VBoxContainer] bigger.
 		SpawnPoints.BOTTOM_LEFT:
 			bottom_left.get_node("VBoxContainer").add_child(panel)
+			panel.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN ## Make sure it is aligned properly to the edge of the screen even if other, bigger notifications make the [VBoxContainer] bigger.
