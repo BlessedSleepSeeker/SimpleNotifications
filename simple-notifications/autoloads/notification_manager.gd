@@ -14,16 +14,36 @@ class_name NotificationManager_
 ## See [method store_notification], [method push_stored_notification] and [method get_stored_notification].
 @export var stored_notifications: Dictionary[String, UserNotification] = {}
 
-@export_group("UserNotification Defaults")
+@export_category("UserNotification Defaults")
 ## Time before a notification disapear.[br]
 ## Can be overriden on a per-notification basis. See [member Notification.lifetime].
-@export var default_lifetime: float = 10
+@export var lifetime: float = 10
 ## Default Icon Size (in px).[br]
 ## Can be overriden on a per-notification basis. See [member Notification.icon_size].
-@export var default_icon_size: float = 64.0
+@export var icon_size: float = 64.0
 ## Default Label Horizontal Space (in px).[br]
 ## Can be overriden on a per-notification basis. See [member Notification.labels_horizontal_size].
-@export var default_labels_horizontal_size: float = 256.0
+@export var labels_horizontal_size: float = 256.0
+
+@export_group("Spawn Animation")
+## Disable the animation played when displayed.
+@export var disable_animation_spawn: bool = false
+## Speed at which the animation is played.
+@export var tween_speed_spawn: float = 0.2
+## Change the [member Tween.TransitionType] applied to the tween.
+@export var tween_transition_spawn: Tween.TransitionType = Tween.TRANS_LINEAR
+## Change the easing applied to the tweens in the animation. Make sure to use this variable if you're doing a custom tween !
+@export var tween_easing_spawn: Tween.EaseType = Tween.EASE_IN_OUT
+
+@export_group("Fade Animation")
+## Disable the animation triggered when dismissed.
+@export var disable_animation_fade: bool = false
+## Speed at which the animation is played.
+@export var tween_speed_fade: float = 0.2
+## Change the [member Tween.TransitionType] applied to the tween.
+@export var tween_transition_fade: Tween.TransitionType = Tween.TRANS_LINEAR
+## Change the easing applied to the tweens in the animation. Make sure to use this variable if you're doing a custom tween !
+@export var tween_easing_fade: Tween.EaseType = Tween.EASE_IN_OUT
 
 @onready var top_left: MarginContainer = %TopLeft
 @onready var top_right: MarginContainer = %TopRight

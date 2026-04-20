@@ -27,9 +27,9 @@ signal focus_out
 
 func _ready():
 	amount_control.value = NotificationManager.maximum_notification_amount
-	lifetime_control.value = NotificationManager.default_lifetime
-	icon_size.value = NotificationManager.default_icon_size
-	label_size.value = NotificationManager.default_labels_horizontal_size
+	lifetime_control.value = NotificationManager.lifetime
+	icon_size.value = NotificationManager.icon_size
+	label_size.value = NotificationManager.labels_horizontal_size
 
 	new_button.pressed.connect(_spawn_new_notification)
 	stored_button.pressed.connect(_spawn_stored_notification)
@@ -43,6 +43,9 @@ func _ready():
 
 	doc_button.pressed.connect(_display_documentation)
 	hide_doc_button.pressed.connect(_hide_documentation)
+
+	if OS.has_feature("web"):
+		delayed_button.disabled = true
 
 #region UI Settings
 
@@ -63,13 +66,13 @@ func _on_spawn_control_changed(index: int) -> void:
 			NotificationManager.spawn_point = NotificationManager_.SpawnPoints.TOP_LEFT
 
 func _on_lifetime_control_changed(value: float) -> void:
-	NotificationManager.default_lifetime = value
+	NotificationManager.lifetime = value
 
 func _on_icon_size_changed(value: float) -> void:
-	NotificationManager.default_icon_size = value
+	NotificationManager.icon_size = value
 
 func _on_label_size_changed(value: float) -> void:
-	NotificationManager.default_labels_horizontal_size = value
+	NotificationManager.labels_horizontal_size = value
 
 func _display_documentation() -> void:
 	doc_container.show()

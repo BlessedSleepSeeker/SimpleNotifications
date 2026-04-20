@@ -199,12 +199,13 @@ bbcode_enabled = true
 text = "[center][wave amp=20.0 freq=1.0 connected=1][font_size=40]Seeker's Simple Notifications[/font_size][/wave][/center]
 
 [font_size=20]Global Params :[/font_size]
-Theses are stored in [color=cyan]NotificationManager[/color] and acts as default values. [color=cyan]UserNotification[/color] you generate can either use the global value or override it with custom ones.
+Theses are stored in [color=cyan]NotificationManager[/color] and acts as default values. [color=cyan]UserNotification[/color] you instantiate can either use the global value or override it with custom ones.
 
 [font_size=20]Buttons :[/font_size]
 1: Create a brand new [color=cyan]UserNotification[/color] from scratch and send it to the [color=cyan]NotificationManager[/color].
 2: Stored notifications are \"presets\" [color=cyan]UserNotification[/color] that can be easily sent and displayed from their name alone.
-3: This button will spawn a notification once you lose focus on the app window (it waits before you lose focus otherwise the blink part is not doing anything). The notification will make your app's taskbar icon blink ! THE BLINK DOES NOT WORK ON WEB AND GODOT EDITOR, only in exported builds !"
+3: This button will spawn a notification once you lose focus on the app window. It waits before you lose focus otherwise the blink part is not doing anything). The notification will make your app's taskbar icon blink !
+DISABLED ON WEB BUILDS because Godot can't know if you've lost focus on web. Doesn't blink the window in the Godot Editor due to shenanigans."
 fit_content = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="DocumentationContainer/MarginContainer/VBoxContainer" unique_id=633708414]
