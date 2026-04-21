@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://djed76ayof5tw"]
 
 [ext_resource type="Script" uid="uid://dfgn7qnjq0w7k" path="res://autoloads/notification_manager.gd" id="1_e35yb"]
-[ext_resource type="PackedScene" uid="uid://c2ydnuyrvo486" path="res://notifications/ui/NotificationPanel.tscn" id="2_c62to"]
-[ext_resource type="Script" uid="uid://d4a3hkhy7212h" path="res://notifications/logic/notification.gd" id="2_eemui"]
-[ext_resource type="Resource" uid="uid://i4sm1eucmmw7" path="res://notifications/demo/stored_notification/construct_additionals_pylons.tres" id="3_hd0ff"]
+[ext_resource type="PackedScene" uid="uid://c2ydnuyrvo486" path="res://ui/NotificationPanel.tscn" id="2_c62to"]
+[ext_resource type="Script" uid="uid://d4a3hkhy7212h" path="res://logic/notification.gd" id="2_eemui"]
+[ext_resource type="Resource" uid="uid://i4sm1eucmmw7" path="res://demo/stored_notification/construct_additionals_pylons.tres" id="3_hd0ff"]
 
 [node name="NotificationManager" type="CanvasLayer" unique_id=1438831522]
 layer = 10
