@@ -2,7 +2,7 @@
 
 ⚙ Seeker's Simple Notifications is a modulable, open and robust Notification System for you to use in your Godot 4.6+ projects. Enjoy the peace of mind of a ready to use, fully commented and easily expandable addon ! 
 
-The code is available on [Github](https://github.com/BlessedSleepSeeker/SimpleNotifications) and you can try a build online directly on [itch.io]() !
+The code is available on [Github](https://github.com/BlessedSleepSeeker/SimpleNotifications) and you can try a build online directly on [itch.io](https://blessedsleepseeker.itch.io/simple-notifications) !
 
 - [⚙ Seeker's Simple Notifications](#-seekers-simple-notifications)
 	- [💻 Features](#-features)
