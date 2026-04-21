@@ -10,6 +10,8 @@ extends MarginContainer
 @onready var lifetime_control: SpinBox = %LifetimeControl
 @onready var icon_size: SpinBox = %IconSizeControl
 @onready var label_size: SpinBox = %LabelSizeControl
+@onready var flush_button: Button = %FlushButton
+@onready var flush_button2: Button = %FlushButton2
 
 @onready var doc_button: Button = %DocButton
 @onready var hide_doc_button: Button = %HideDocButton
@@ -20,8 +22,6 @@ extends MarginContainer
 @onready var delayed_button: Button = %DelayedButton
 
 @onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-
-var total_notif_spawned: int = 0
 
 signal focus_out
 
@@ -40,6 +40,8 @@ func _ready():
 	lifetime_control.value_changed.connect(_on_lifetime_control_changed)
 	icon_size.value_changed.connect(_on_icon_size_changed)
 	label_size.value_changed.connect(_on_label_size_changed)
+	flush_button.pressed.connect(NotificationManager.remove_visible_notifications)
+	flush_button2.pressed.connect(NotificationManager.empty_queue)
 
 	doc_button.pressed.connect(_display_documentation)
 	hide_doc_button.pressed.connect(_hide_documentation)
@@ -93,9 +95,7 @@ func get_randomized_notification() -> UserNotification:
 	return notif
 
 func _spawn_new_notification() -> void:
-	total_notif_spawned += 1
 	var notif: UserNotification = get_randomized_notification()
-
 	NotificationManager.push_notification(notif)
 
 func _spawn_stored_notification() -> void:

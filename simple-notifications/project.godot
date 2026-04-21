@@ -21,7 +21,7 @@ NotificationManager="*uid://djed76ayof5tw"
 
 [global_group]
 
-UserNotification="User Defined Notifications"
+UserNotificationPanel="User Defined Notifications"
 
 [physics]
 

@@ -2,30 +2,46 @@
 extends PanelContainer
 class_name UserNotificationPanel
 
+#region __Members__
+## The [UserNotification] used to build the UI.
 @export var user_notification: UserNotification = null:
 	set(value):
 		user_notification = value
 		build()
 
+## [RichTextLabel] with text set to [UserNotification.title] data.
 @onready var title_label: RichTextLabel = %Title
+## [RichTextLabel] with text set to [UserNotification.text] data.
 @onready var text_label: RichTextLabel = %Text
+## [TextureRect] with texture set to [UserNotification.icon] data.
 @onready var image_rect: TextureRect = %Image
 
+## [Timer] linked to [UserNotification.lifetime].
 @onready var timer: Timer = %FadeTimer
+## [ProgressBar] to display [UserNotification.lifetime] fading away.
 @onready var timer_bar: ProgressBar = %BarTimer
 
+## [AudioStreamPlayer] to play [UserNotification.on_spawn_sfx].
 @onready var on_spawn_sfx_player: AudioStreamPlayer = %OnSpawnSFX
 
+## Keeping reference to tween to stop them if needed.
 var spawn_tween: Tween = null
 var fade_tween: Tween = null
+#endregion
 
+#region __Signals__
 signal clicked
+#endregion
 
+#region __Methods__
 func _ready() -> void:
 	self.gui_input.connect(_on_input_received)
 	build()
 
+#region Panel Creation
 func build() -> void:
+	if fade_tween:
+		fade_tween.stop()
 	apply_theme()
 	apply_dimensions()
 	apply_data()
@@ -42,13 +58,13 @@ func apply_theme() -> void:
 ## Set the custom minimum size of the controls to the decided values in [member UserNotification.labels_horizontal_size] & [member UserNotification.icon_size].
 func apply_dimensions() -> void:
 	if user_notification:
-		if user_notification.labels_horizontal_size < 0:
+		if user_notification.labels_horizontal_size < 0: ## Grows to required size. See [member RichTextLabel.fit_content].
 			title_label.custom_minimum_size.x = 0
 			text_label.custom_minimum_size.x = 0
 			title_label.fit_content = true
 			text_label.fit_content = true
-		elif user_notification.labels_horizontal_size == 0:
-			if NotificationManager.labels_horizontal_size < 0:
+		elif user_notification.labels_horizontal_size == 0: ## Use the default defined in [member NotificationManager.labels_horizontal_size].
+			if NotificationManager.labels_horizontal_size < 0: ## Grows to required size. See [member RichTextLabel.fit_content].
 				title_label.custom_minimum_size.x = 0
 				text_label.custom_minimum_size.x = 0
 				title_label.fit_content = true
@@ -56,15 +72,15 @@ func apply_dimensions() -> void:
 			else:
 				title_label.custom_minimum_size.x = NotificationManager.labels_horizontal_size
 				text_label.custom_minimum_size.x = NotificationManager.labels_horizontal_size
-		else:
+		else: ## Override with custom values from [member UserNotification.labels_horizontal_size]
 			title_label.custom_minimum_size.x = user_notification.labels_horizontal_size
 			text_label.custom_minimum_size.x = user_notification.labels_horizontal_size
 		
-		if user_notification.icon_size < 0: ## Use the default icon size
+		if user_notification.icon_size < 0: ## Use the original icon size
 			image_rect.custom_minimum_size = Vector2(0, 0)
 			image_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		elif user_notification.icon_size == 0: ## Use the default defined in [member NotificationManager.icon_size].
-			if NotificationManager.icon_size < 0:
+			if NotificationManager.icon_size < 0: ## Use the original icon size
 				image_rect.custom_minimum_size = Vector2(0, 0)
 				image_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 			else:
@@ -94,9 +110,14 @@ func apply_sfx() -> void:
 		on_spawn_sfx_player.stream = user_notification.on_spawn_sfx
 		on_spawn_sfx_player.play()
 
+#endregion
+
+#region Various
+## self.queue_free() shortcut.
 func destroy() -> void:
 	self.queue_free()
 
+## Check if the notification was clicked. Start playing the fade animation and emit [signal clicked] if so.
 func _on_input_received(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if user_notification:
@@ -107,9 +128,14 @@ func _on_input_received(event: InputEvent) -> void:
 			play_animation_fade()
 
 func _process(_delta):
+	update_progress_bar()
+
+## Update the progress bar's value every frame.
+func update_progress_bar() -> void:
 	if user_notification && not user_notification.disable_lifetime_animation && user_notification.lifetime >= 0:
 		timer_bar.value = inverse_number_around_another(timer.time_left, timer.wait_time / 2)
 
+## Make the taskbar icon of the current window blink. See [method DisplayServer.window_request_attention].
 func apply_taskbar_blink() -> void:
 	if user_notification && user_notification.make_taskbar_icon_blink:
 		DisplayServer.window_request_attention()

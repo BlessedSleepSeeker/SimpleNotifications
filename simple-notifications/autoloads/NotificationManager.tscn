@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djed76ayof5tw"]
 
 [ext_resource type="Script" uid="uid://dfgn7qnjq0w7k" path="res://autoloads/notification_manager.gd" id="1_e35yb"]
-[ext_resource type="PackedScene" uid="uid://c2ydnuyrvo486" path="res://ui/NotificationPanel.tscn" id="2_c62to"]
+[ext_resource type="PackedScene" uid="uid://c2ydnuyrvo486" path="res://ui/UserNotificationPanel.tscn" id="2_c62to"]
 [ext_resource type="Script" uid="uid://d4a3hkhy7212h" path="res://logic/notification.gd" id="2_eemui"]
 [ext_resource type="Resource" uid="uid://i4sm1eucmmw7" path="res://demo/stored_notification/construct_additionals_pylons.tres" id="3_hd0ff"]
 
@@ -24,10 +24,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="NotificationPanel" parent="TopLeft/VBoxContainer" unique_id=366084501 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel" parent="TopLeft/VBoxContainer" unique_id=366084501 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 
-[node name="NotificationPanel2" parent="TopLeft/VBoxContainer" unique_id=1417460121 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel2" parent="TopLeft/VBoxContainer" unique_id=1417460121 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 
 [node name="TopRight" type="MarginContainer" parent="." unique_id=553566981]
@@ -46,15 +46,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="NotificationPanel" parent="TopRight/VBoxContainer" unique_id=586697808 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel" parent="TopRight/VBoxContainer" unique_id=586697808 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="NotificationPanel2" parent="TopRight/VBoxContainer" unique_id=307443406 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel2" parent="TopRight/VBoxContainer" unique_id=307443406 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="NotificationPanel3" parent="TopRight/VBoxContainer" unique_id=265430925 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel3" parent="TopRight/VBoxContainer" unique_id=265430925 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
@@ -77,15 +77,15 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 mouse_filter = 2
 
-[node name="NotificationPanel" parent="BottomRight/VBoxContainer" unique_id=328376741 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel" parent="BottomRight/VBoxContainer" unique_id=328376741 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="NotificationPanel2" parent="BottomRight/VBoxContainer" unique_id=104873546 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel2" parent="BottomRight/VBoxContainer" unique_id=104873546 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="NotificationPanel3" parent="BottomRight/VBoxContainer" unique_id=1714537978 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel3" parent="BottomRight/VBoxContainer" unique_id=1714537978 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
@@ -106,8 +106,8 @@ size_flags_vertical = 8
 mouse_filter = 2
 alignment = 2
 
-[node name="NotificationPanel" parent="BottomLeft/VBoxContainer" unique_id=2140913386 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel" parent="BottomLeft/VBoxContainer" unique_id=2140913386 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2
 
-[node name="NotificationPanel2" parent="BottomLeft/VBoxContainer" unique_id=964766638 instance=ExtResource("2_c62to")]
+[node name="NotificationPanel2" parent="BottomLeft/VBoxContainer" unique_id=964766638 groups=["UserNotificationPanel"] instance=ExtResource("2_c62to")]
 layout_mode = 2

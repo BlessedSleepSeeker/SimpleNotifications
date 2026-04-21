@@ -2,9 +2,11 @@
 extends CanvasLayer
 class_name NotificationManager_
 
+## The [PackedScene] used to display the notifications.
 @export var notification_panel_scene: PackedScene = preload("uid://c2ydnuyrvo486")
 
-## Maximum amount of displayed notification at the same time. If notifications are sent when the maximum is reached, they're put in a queue and displayed once space is available. Set to 0 to disable notifications and to -1 to allow infinite notifications.
+## Maximum amount of displayed notification at the same time. If notifications are sent when the maximum is reached, they're put in a queue and displayed once space is available.[br]
+##`Set to 0 to disable notifications and to -1 to allow infinite notifications.
 @export var maximum_notification_amount: int = 4
 ## In which corner of the screen should the notification appear. See [enum SpawnPoints].[br]
 ## Can be overriden on a per-notification basis. See [member Notification.lifetime].
@@ -62,8 +64,26 @@ enum SpawnPoints {
 }
 
 func _ready():
-	flush_all_notifications()
+	remove_every_notifications()
 
+#region Notification Queue
+## Push a notification to the notification queue.
+func push_notification(user_notification: UserNotification) -> void:
+	if user_notification:
+		notifications_queue.push_back(user_notification)
+	try_to_display_notification()
+
+## Pop the first notification in the queue.
+func pop_next_notification() -> UserNotification:
+	return notifications_queue.pop_front()
+
+## Empty the notification queue.
+func empty_queue() -> void:
+	notifications_queue = []
+
+#endregion
+
+#region Stored Notification
 ## Store a notification for future use. By default, the key is set to [member UserNotification.title].
 func store_notification(user_notification: UserNotification) -> void:
 	stored_notifications.set(user_notification.title, user_notification)
@@ -80,27 +100,11 @@ func get_stored_notification(notification_name: String) -> UserNotification:
 func push_stored_notification(notification_name: String) -> void:
 	push_notification(get_stored_notification(notification_name))
 
-## Push a notification to the notification queue.
-func push_notification(user_notification: UserNotification) -> void:
-	if user_notification:
-		notifications_queue.push_back(user_notification)
-	try_to_display_notification()
+#endregion
 
-func flush_all_notifications() -> void:
-	for notif: UserNotification in get_tree().get_nodes_in_group("UserNotification") as Array[UserNotification]:
-		notif.queue_free()
-	notifications_queue = []
-
-## Return the first notification in the queue.
-func get_next_notification() -> UserNotification:
-	return notifications_queue.front()
-
-## Pop the first notification in the queue.
-func pop_next_notification() -> UserNotification:
-	return notifications_queue.pop_front()
-
+#region Display
 func try_to_display_notification() -> void:
-	if get_visible_notification_amount() >= maximum_notification_amount && maximum_notification_amount != -1:
+	if get_visible_notifications_amount() >= maximum_notification_amount && maximum_notification_amount != -1:
 		## Too much notifications ! Let's wait some of them die first.
 		return
 
@@ -112,9 +116,6 @@ func try_to_display_notification() -> void:
 	add_notification_to_spawn_point(notif_panel, next_notification.spawn_point)
 	notif_panel.user_notification = next_notification
 	notif_panel.tree_exited.connect(try_to_display_notification)
-
-func get_visible_notification_amount() -> int:
-	return get_tree().get_nodes_in_group("UserNotification").size()
 
 ## Call [method add_child] on the proper spawn point.
 func add_notification_to_spawn_point(panel: UserNotificationPanel, _spawn_point: NotificationManager_.SpawnPoints) -> void:
@@ -133,3 +134,23 @@ func add_notification_to_spawn_point(panel: UserNotificationPanel, _spawn_point:
 		SpawnPoints.BOTTOM_LEFT:
 			bottom_left.get_node("VBoxContainer").add_child(panel)
 			panel.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN ## Make sure it is aligned properly to the edge of the screen even if other, bigger notifications make the [VBoxContainer] bigger.
+
+func remove_visible_notifications() -> void:
+	for notif: UserNotificationPanel in get_visible_notifications() :
+		notif.play_animation_fade()
+
+#endregion
+
+#region Helpers
+func get_visible_notifications() -> Array[UserNotificationPanel]:
+	var nodes: Array[Node] = get_tree().get_nodes_in_group("UserNotificationPanel")
+	var visible_notifications: Array[UserNotificationPanel] = []
+	visible_notifications.assign(nodes)
+	return visible_notifications
+
+func get_visible_notifications_amount() -> int:
+	return get_visible_notifications().size()
+
+func remove_every_notifications() -> void:
+	remove_visible_notifications()
+	empty_queue()

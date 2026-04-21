@@ -134,6 +134,19 @@ alignment = 1
 layout_mode = 2
 text = "Label Size in pixels. -1 == take needed space to display all the text"
 
+[node name="HBoxContainer7" type="HBoxContainer" parent="HBoxContainer" unique_id=1204786479]
+layout_mode = 2
+
+[node name="FlushButton" type="Button" parent="HBoxContainer/HBoxContainer7" unique_id=575675827]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove All Notifications On Screen"
+
+[node name="FlushButton2" type="Button" parent="HBoxContainer/HBoxContainer7" unique_id=57826085]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove All Notifications In Queue"
+
 [node name="Control" type="Control" parent="HBoxContainer" unique_id=1569942471]
 layout_mode = 2
 size_flags_vertical = 3
