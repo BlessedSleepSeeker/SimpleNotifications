@@ -107,4 +107,4 @@ Check out my other Godot Addons !
 - [Seeker's Splendid Settings](https://blessedsleepseeker.itch.io/splendid-settings) - A Complete Setting Framework with automatic UI generation
 - [Seeker's Simple Input Prompts](https://blessedsleepseeker.itch.io/simple-inputs-prompts) - Customizable Input Prompts Nodes with many customization options !
 
-You can now read the [Documentation](simple_notifications/documentation/DOCUMENTATION.md)
+You can now read the [Documentation](https://github.com/BlessedSleepSeeker/SimpleNotifications/blob/main/simple-notifications/documentation/DOCUMENTATION.md)
